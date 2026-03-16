@@ -5,7 +5,6 @@
   // Acesso público (sem Zero Trust) — tratador acessa sem login
   "workers_dev": true,
   "assets": {
-    "directory": ".",
-    "exclude": [".git/**", ".wrangler/**"]
+    "directory": "."
   }
 }
