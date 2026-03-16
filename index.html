@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trato do Dia — Fazenda Árvore Grande</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--brand:#00558c;--brand-dark:#003d66;--bg:#f5f6fa;--surface:#fff;--border:#dde3eb;--text:#1e293b;--muted:#64748b;--radius:12px;--shadow:0 2px 12px rgba(0,85,140,.08);--green:#2e7d32;--green-lt:#e8f5e9;--green-dk:#1b5e20}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);padding-bottom:24px}
+h1,h2,h3{font-family:'DM Serif Display','Georgia',serif}
+.hdr{background:linear-gradient(135deg,#00558c 0%,#003d66 100%);color:#fff;padding:28px 40px 18px;text-align:center;position:relative}
+.hdr-logo{height:100px;position:absolute;left:40px;top:50%;transform:translateY(-50%)}
+.hdr h1{font-size:1.5rem;font-weight:400;margin-bottom:4px}
+.hdr p{font-size:.82rem;opacity:.85;font-family:'Inter',sans-serif}
+.nav-links{display:flex;justify-content:center;gap:6px;padding:10px 40px;background:#003d66;flex-wrap:wrap}
+.nav-links a{color:#fff;text-decoration:none;font-size:13px;padding:6px 16px;border-radius:6px;background:rgba(255,255,255,.12);transition:background .2s}
+.nav-links a:hover{background:rgba(255,255,255,.25)}
+.nav-links a.active{background:rgba(255,255,255,.25);font-weight:600}
+.container{max-width:900px;margin:0 auto;padding:16px}
+.sec-title{font-size:1.05rem;color:var(--green-dk);margin:20px 0 12px;padding:10px 16px;background:var(--green-lt);border-radius:8px;border-left:4px solid var(--green);display:flex;align-items:center;gap:8px}
+.lots-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lot-card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--border)}
+.lot-hdr{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--green-lt);border-bottom:1px solid #c8e6c9}
+.lot-name{font-weight:700;font-size:1rem;color:var(--green-dk)}
+.lot-sub{display:block;font-size:.73rem;color:var(--muted);font-weight:400;font-family:'Inter',sans-serif;margin-top:1px}
+.cnt-ctrl{display:flex;align-items:center;gap:6px}
+.cnt-btn{width:44px;height:44px;font-size:1.5rem;font-weight:700;border:none;border-radius:50%;background:var(--green);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
+.cnt-btn:active{background:var(--green-dk)}
+.cnt-inp{width:56px;height:44px;text-align:center;font-size:1.2rem;font-weight:600;border:2px solid #c8e6c9;border-radius:8px;background:#fff;color:var(--text);-moz-appearance:textfield}
+.cnt-inp::-webkit-inner-spin-button,.cnt-inp::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.ing-list{padding:4px 16px}
+.ing-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f4f0;font-size:.85rem}
+.ing-row:last-child{border-bottom:none}
+.ing-name{color:var(--text)}
+.ing-kg{font-weight:600;color:var(--green-dk);min-width:75px;text-align:right;font-variant-numeric:tabular-nums}
+.lot-foot{display:flex;justify-content:space-between;padding:10px 16px;background:#f0f7f0;font-weight:700;font-size:.9rem;color:var(--green-dk);border-top:2px solid #c8e6c9}
+.lot-cost{text-align:right;padding:4px 16px 8px;font-size:.75rem;color:var(--muted)}
+.summary{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);margin-top:20px;padding:20px;border:1px solid var(--border)}
+.summary h2{font-size:1.05rem;color:var(--green);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--green-lt)}
+.sum-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f0f4f0;font-size:.85rem}
+.sum-row:last-child{border-bottom:none}
+.sum-kg{font-weight:600;font-variant-numeric:tabular-nums}
+.sum-grand{background:var(--green-lt);font-weight:700;font-size:.95rem;padding:8px 8px;border-radius:6px;margin-top:6px;border-bottom:none}
+.sum-kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.sum-kpi{text-align:center;padding:14px 8px;background:#f8faf8;border-radius:8px;border:1px solid #e0e8e0}
+.sum-val{font-size:1.15rem;font-weight:700;color:var(--green)}
+.sum-val.neg{color:#c62828}
+.sum-lbl{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-top:2px}
+.save-ind{position:fixed;top:76px;right:16px;background:var(--green);color:#fff;padding:6px 16px;border-radius:20px;font-size:.8rem;font-weight:600;opacity:0;transition:opacity .3s;z-index:100;pointer-events:none}
+.act-bar{text-align:center;margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.act-btn{padding:10px 24px;background:#fff;color:var(--muted);border:1px solid var(--border);border-radius:8px;font-size:.85rem;cursor:pointer;transition:border-color .2s}
+.act-btn:hover{border-color:var(--green);color:var(--green)}
+.footer{text-align:center;color:var(--muted);font-size:.72rem;padding:16px;margin-top:12px}
+@media(max-width:700px){
+ .hdr{padding:20px 16px 14px}.hdr-logo{display:none}
+ .nav-links{padding:8px 12px;gap:4px}.nav-links a{font-size:11px;padding:5px 10px}
+ .container{padding:10px}.lots-grid{grid-template-columns:1fr}
+ .sec-title{margin:14px 0 8px}
+}
+@media(max-width:400px){
+ .lot-hdr{flex-direction:column;align-items:flex-start;gap:8px}
+ .cnt-ctrl{align-self:flex-end}
+ .sum-kpis{grid-template-columns:1fr}
+}
+@media print{
+ .nav-links,.save-ind,.act-bar{display:none!important}
+ .hdr{padding:16px;background:var(--green)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .cnt-btn{display:none}.cnt-inp{border:none;background:transparent;font-weight:700}
+ .lots-grid{grid-template-columns:1fr 1fr}.lot-card{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <img src="assets/logo_white.png" alt="Fazenda Árvore Grande" class="hdr-logo">
+  <h1>Trato do Dia</h1>
+  <p>Quantidade por lote · Gerado em 16/03/2026 15:59</p>
+</div>
+
+
+<div class="save-ind" id="saveInd"></div>
+
+<div class="container">
+  <div class="sec-title" id="secLact">🥛 Lactação <span style="font-size:.75rem;font-weight:400;color:var(--muted);margin-left:auto">÷ 2 tratos/dia</span></div>
+  <div class="lots-grid" id="lactGrid"></div>
+
+  <div class="sec-title" id="secOutr">🌾 Recria / Outras</div>
+  <div class="lots-grid" id="outrGrid"></div>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="act-bar">
+    <button class="act-btn" onclick="doReset()">↺ Resetar padrão</button>
+    <button class="act-btn" onclick="window.print()">🖨 Imprimir</button>
+  </div>
+</div>
+
+<div class="footer">Fazenda Árvore Grande · Preços atualizados em 16/03/2026 15:59</div>
+
+<script>
+/* ── Data (embedded by Python) ─────────────────────────────────── */
+const R = {"lactacao": [{"nome": "Lote 1", "animais": 12, "media_leite_l": 34.6, "ingredientes": {"Silagem de milho": 28, "Farelo de soja": 4.8, "Polpa cítrica": 1.8, "Grão úmido": 3.8, "Fubá": 1, "Caroço de algodão": 2, "Premix": 1, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Lote 2", "animais": 25, "media_leite_l": 29, "ingredientes": {"Silagem de milho": 27, "Farelo de soja": 4.4, "Polpa cítrica": 1.5, "Grão úmido": 3, "Fubá": 1, "Caroço de algodão": 1, "Premix": 1, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Novilhas", "animais": 18, "media_leite_l": 22, "ingredientes": {"Silagem de milho": 26, "Farelo de soja": 4, "Polpa cítrica": 1, "Grão úmido": 3, "Fubá": 0.5, "Caroço de algodão": 1, "Premix": 1, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Lote 3", "animais": 15, "media_leite_l": 16, "ingredientes": {"Silagem de milho": 28, "Farelo de soja": 2.8, "Polpa cítrica": 1, "Grão úmido": 1, "Fubá": 0, "Caroço de algodão": 0, "Premix": 0.5, "Sal branco": 0.04, "Power FOS": 0.04}}], "outras": [{"nome": "Bezerras", "animais": 40, "ingredientes": {"Batida Bezerras": 1.5, "Silagem de milho": 5, "Leite": 6}}, {"nome": "Novilhas Recria", "animais": 33, "ingredientes": {"Batida Novilhas": 1.8, "Silagem de sorgo": 7}}, {"nome": "Pré-Parto", "animais": 4, "ingredientes": {"Batida Pré-Parto": 3, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Vacas Secas", "animais": 10, "ingredientes": {"Silagem de sorgo": 6, "Silagem de milho": 6, "Sal branco": 0.04, "Power FOS": 0.04}}], "premix": {"nome": "Premix", "total_kg": 497, "componentes": [{"nome": "Farelo de soja", "kg": 180}, {"nome": "Uréia agrícola", "kg": 20}, {"nome": "Maxmilk Advance", "kg": 170}, {"nome": "Bicarbonato de sódio", "kg": 105}, {"nome": "Sequestrante (Mastersorb Gold)", "kg": 22}]}, "batidas": {"Batida Bezerras": {"total_kg": 500, "componentes": [{"nome": "Farelo de soja", "kg": 155}, {"nome": "Fubá", "kg": 210}, {"nome": "Farelo de trigo", "kg": 85}, {"nome": "Kaliber Supreme", "kg": 50}]}, "Batida Novilhas": {"total_kg": 505, "componentes": [{"nome": "Farelo de soja", "kg": 285}, {"nome": "Fubá", "kg": 160}, {"nome": "Uréia agrícola", "kg": 10}, {"nome": "Power Recria 150", "kg": 50}]}, "Batida Pré-Parto": {"total_kg": 500, "componentes": [{"nome": "Farelo de soja", "kg": 200}, {"nome": "Fubá", "kg": 80}, {"nome": "Farelo de trigo", "kg": 135}, {"nome": "Caroço de algodão", "kg": 35}, {"nome": "Prelacto Ionic Protect", "kg": 50}]}}};
+const P = {"Silagem de milho": 0.13, "Grão úmido": 0.78, "Silagem de sorgo": 0.13, "Milho grão (seco)": 1.07, "Fubá": 1.07, "Farelo de soja": 2.6, "Polpa cítrica": 1.47, "Caroço de algodão": 1.83, "Farelo de trigo": 1.71, "Sal branco": 1.0, "Power FOS": 5.0, "Kaliber Supreme": 5.76, "Power Recria 150": 14.4, "Prelacto Ionic Protect": 4.0, "Uréia agrícola": 3.83, "Maxmilk Advance": 33.6, "Bicarbonato de sódio": 5.24, "Sequestrante (Mastersorb Gold)": 11.57, "Premix": 14.2079, "Batida Bezerras": 2.1221, "Batida Novilhas": 3.3079, "Batida Pré-Parto": 2.201};
+const ML = 2.1;
+
+/* ── State ─────────────────────────────────────────────────────── */
+const DFLT = {};
+let C = {};
+
+function init() {
+  R.lactacao.forEach(function(l){ DFLT[l.nome] = l.animais; });
+  R.outras.forEach(function(l){ DFLT[l.nome] = l.animais; });
+  loadCounts();
+  render();
+}
+
+function loadCounts() {
+  try {
+    var s = localStorage.getItem('trato_counts');
+    if (s) C = JSON.parse(s);
+  } catch(e) { C = {}; }
+  for (var k in DFLT) {
+    if (!(k in C)) C[k] = DFLT[k];
+  }
+}
+
+function saveCounts() {
+  localStorage.setItem('trato_counts', JSON.stringify(C));
+  var el = document.getElementById('saveInd');
+  el.textContent = '\u2713 Salvo';
+  el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.style.opacity = '0'; }, 1200);
+}
+
+/* ── Price helpers ─────────────────────────────────────────────── */
+function pr(name) {
+  if (name === 'Leite') return custoLeiteLitro();
+  return P[name] || 0;
+}
+
+function custoLeiteLitro() {
+  var tc = 0, tl = 0;
+  R.lactacao.forEach(function(l) {
+    var n = C[l.nome] || 0;
+    for (var ing in l.ingredientes) {
+      tc += l.ingredientes[ing] * n * (P[ing] || 0);
+    }
+    tl += (l.media_leite_l || 0) * n;
+  });
+  return tl > 0 ? tc / tl : 0;
+}
+
+/* ── Count controls ────────────────────────────────────────────── */
+function adj(lot, d) {
+  C[lot] = Math.max(0, (C[lot] || 0) + d);
+  saveCounts();
+  render();
+}
+
+function setC(lot, el) {
+  C[lot] = Math.max(0, parseInt(el.value) || 0);
+  saveCounts();
+  render();
+}
+
+function doReset() {
+  if (!confirm('Resetar contagens para os valores padr\u00e3o?')) return;
+  for (var k in DFLT) C[k] = DFLT[k];
+  saveCounts();
+  render();
+}
+
+/* ── Formatting ────────────────────────────────────────────────── */
+function fk(v) { return v.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1}); }
+function fb(v) { return v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+/* ── Render ────────────────────────────────────────────────────── */
+function render() {
+  var lactH = '', outrH = '';
+  R.lactacao.forEach(function(l){ lactH += card(l, true); });
+  R.outras.forEach(function(l){ outrH += card(l, false); });
+  document.getElementById('lactGrid').innerHTML = lactH;
+  document.getElementById('outrGrid').innerHTML = outrH;
+  renderSummary();
+}
+
+function card(lot, isLact) {
+  var n = C[lot.nome] || 0;
+  var tratos = isLact ? 2 : 1;
+  var rows = '', total = 0, custoDia = 0;
+  for (var ing in lot.ingredientes) {
+    var qtyDia = lot.ingredientes[ing];
+    var kgDia = qtyDia * n;
+    var kgTrato = kgDia / tratos;
+    total += kgTrato;
+    custoDia += kgDia * pr(ing);
+    var extra = '';
+    if (ing.indexOf('Silagem') === 0 && kgTrato > 0) {
+      var garfadas = Math.ceil(kgTrato / 6.25);
+      extra = ' <span style="font-size:.72rem;color:var(--muted)">(' + garfadas + ' garfadas)</span>';
+    }
+    rows += '<div class="ing-row"><span class="ing-name">' + ing +
+            '</span><span class="ing-kg">' + fk(kgTrato) + extra + '</span></div>';
+  }
+  var sub = '';
+  if (isLact && lot.media_leite_l) {
+    sub = '<span class="lot-sub">M\u00e9dia: ' + lot.media_leite_l + ' L/cab</span>';
+  }
+  var rmcaLine = '';
+  if (isLact && lot.media_leite_l) {
+    var rec = lot.media_leite_l * n * ML;
+    var rmca = rec - custoDia;
+    rmcaLine = '<div class="lot-cost">Custo: R$ ' + fb(custoDia) +
+               '/dia &middot; RMCA: <strong style="color:' +
+               (rmca >= 0 ? 'var(--green)' : '#c62828') + '">R$ ' +
+               fb(rmca) + '</strong></div>';
+  } else {
+    rmcaLine = '<div class="lot-cost">Custo: R$ ' + fb(custoDia) + '/dia</div>';
+  }
+  /* Use onchange for typed input, onclick for buttons */
+  return '<div class="lot-card">' +
+    '<div class="lot-hdr"><div><div class="lot-name">' + lot.nome + '</div>' + sub + '</div>' +
+    '<div class="cnt-ctrl">' +
+    '<button class="cnt-btn" onclick="adj(\''+lot.nome+'\', -1)">\u2212</button>' +
+    '<input type="number" class="cnt-inp" value="'+n+'" min="0" max="999" ' +
+    'onchange="setC(\''+lot.nome+'\', this)">' +
+    '<button class="cnt-btn" onclick="adj(\''+lot.nome+'\', 1)">+</button>' +
+    '</div></div>' +
+    '<div class="ing-list">' + rows + '</div>' +
+    '<div class="lot-foot"><span>Total' + (isLact ? '/trato' : '') + '</span><span>' + fk(total) + ' kg</span></div>' +
+    rmcaLine +
+    '</div>';
+}
+
+function renderSummary() {
+  var ings = {}, totalCost = 0, totalLiters = 0;
+  var ingsLactTrato = {};
+  var allLots = R.lactacao.concat(R.outras);
+  allLots.forEach(function(l) {
+    var n = C[l.nome] || 0;
+    var isLact = !!l.media_leite_l;
+    for (var ing in l.ingredientes) {
+      var kgDia = l.ingredientes[ing] * n;
+      ings[ing] = (ings[ing] || 0) + kgDia;
+      totalCost += kgDia * pr(ing);
+      if (isLact) {
+        ingsLactTrato[ing] = (ingsLactTrato[ing] || 0) + kgDia / 2;
+      }
+    }
+    if (l.media_leite_l) totalLiters += l.media_leite_l * n;
+  });
+
+  /* Lactação por trato */
+  var lactSorted = Object.keys(ingsLactTrato).filter(function(k){ return ingsLactTrato[k] > 0.05; })
+                   .sort(function(a,b){ return ingsLactTrato[b] - ingsLactTrato[a]; });
+  var lactGrand = 0;
+  var lactRows = '';
+  lactSorted.forEach(function(ing) {
+    lactGrand += ingsLactTrato[ing];
+    lactRows += '<div class="sum-row"><span>' + ing + '</span>' +
+                '<span class="sum-kg">' + fk(ingsLactTrato[ing]) + ' kg</span></div>';
+  });
+  lactRows += '<div class="sum-row sum-grand"><span>TOTAL LACTA\u00c7\u00c3O/TRATO</span>' +
+              '<span class="sum-kg">' + fk(lactGrand) + ' kg</span></div>';
+
+  /* Total dia (tudo) */
+  var sorted = Object.keys(ings).filter(function(k){ return ings[k] > 0.05; })
+               .sort(function(a,b){ return ings[b] - ings[a]; });
+  var grand = 0;
+  var irows = '';
+  sorted.forEach(function(ing) {
+    grand += ings[ing];
+    irows += '<div class="sum-row"><span>' + ing + '</span>' +
+             '<span class="sum-kg">' + fk(ings[ing]) + ' kg</span></div>';
+  });
+  irows += '<div class="sum-row sum-grand"><span>TOTAL GERAL/DIA</span>' +
+           '<span class="sum-kg">' + fk(grand) + ' kg</span></div>';
+
+  var totalRec = totalLiters * ML;
+  var rmca = totalRec - totalCost;
+  var custoL = totalLiters > 0 ? totalCost / totalLiters : 0;
+
+  document.getElementById('summary').innerHTML =
+    '<h2>Mistura Lacta\u00e7\u00e3o \u2014 por trato (2\u00d7/dia)</h2>' +
+    '<div>' + lactRows + '</div>' +
+    '<h2 style="margin-top:18px">Resumo Total do Dia</h2>' +
+    '<div>' + irows + '</div>' +
+    '<div class="sum-kpis">' +
+    kpi('R$ ' + fb(totalCost), 'Custo total/dia', '') +
+    kpi('R$ ' + fb(rmca), 'RMCA/dia', rmca < 0 ? ' neg' : '') +
+    kpi('R$ ' + fb(custoL), 'Custo/litro', '') +
+    kpi('R$ ' + fb(ML), 'Pre\u00e7o leite', '') +
+    '</div>';
+}
+
+function kpi(val, lbl, cls) {
+  return '<div class="sum-kpi"><div class="sum-val' + cls + '">' + val +
+         '</div><div class="sum-lbl">' + lbl + '</div></div>';
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
