@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Trato do Dia — Fazenda Árvore Grande</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trato do Dia – Fazenda Árvore Grande</title>
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--brand:#00558c;--brand-dark:#003d66;--bg:#f5f6fa;--surface:#fff;--border:#dde3eb;--text:#1e293b;--muted:#64748b;--radius:12px;--shadow:0 2px 12px rgba(0,85,140,.08);--green:#2e7d32;--green-lt:#e8f5e9;--green-dk:#1b5e20}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);padding-bottom:24px}
-h1,h2,h3{font-family:'DM Serif Display','Georgia',serif}
-.hdr{background:linear-gradient(135deg,#00558c 0%,#003d66 100%);color:#fff;padding:28px 40px 18px;text-align:center;position:relative}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',Arial,sans-serif;background:#f5f6fa}
+.hdr{background:linear-gradient(135deg,#00558c 0%,#003d66 100%);color:#fff;padding:24px 40px 16px;text-align:center;position:relative}
 .hdr-logo{height:100px;position:absolute;left:40px;top:50%;transform:translateY(-50%)}
-.hdr h1{font-size:1.5rem;font-weight:400;margin-bottom:4px}
-.hdr p{font-size:.82rem;opacity:.85;font-family:'Inter',sans-serif}
+.hdr h1{font-size:24px;margin:0;font-family:'DM Serif Display',serif;font-weight:400}
+.hdr p{font-size:13px;opacity:.7;margin-top:4px}
 .nav-links{display:flex;justify-content:center;gap:6px;padding:10px 40px;background:#003d66;flex-wrap:wrap}
 .nav-links a{color:#fff;text-decoration:none;font-size:13px;padding:6px 16px;border-radius:6px;background:rgba(255,255,255,.12);transition:background .2s}
 .nav-links a:hover{background:rgba(255,255,255,.25)}
 .nav-links a.active{background:rgba(255,255,255,.25);font-weight:600}
+.date-range-bar{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 20px;background:#f0f3f8;flex-wrap:wrap}
+.date-range-bar label{font-size:13px;color:#555;font-weight:600;white-space:nowrap}
+.date-range-bar input[type="date"]{padding:8px 10px;border:1px solid #ccc;border-radius:8px;font-size:13px;font-family:inherit;background:#fff}
+.date-range-bar .btn-filter{padding:8px 22px;background:#00558c;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
+.date-range-bar .btn-filter:hover{background:#003d66}
+@media(max-width:900px){.hdr-logo{display:none}.nav-links{gap:4px;padding:8px 12px}.nav-links a{padding:4px 10px;font-size:12px}}
+
+:root{--brand:#00558c;--brand-dark:#003d66;--bg:#f5f6fa;--surface:#fff;--border:#dde3eb;--text:#1e293b;--muted:#64748b;--radius:12px;--shadow:0 2px 12px rgba(0,85,140,.08);--green:#2e7d32;--green-lt:#e8f5e9;--green-dk:#1b5e20}
+body{color:var(--text);padding-bottom:24px}
+h1,h2,h3{font-family:'DM Serif Display','Georgia',serif}
 .container{max-width:900px;margin:0 auto;padding:16px}
 .sec-title{font-size:1.05rem;color:var(--green-dk);margin:20px 0 12px;padding:10px 16px;background:var(--green-lt);border-radius:8px;border-left:4px solid var(--green);display:flex;align-items:center;gap:8px}
 .lots-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -65,10 +79,6 @@ h1,h2,h3{font-family:'DM Serif Display','Georgia',serif}
 .form-cost{font-size:.72rem;color:var(--muted);margin-top:2px}
 @media(max-width:700px){
  .form-grid{grid-template-columns:1fr}
-}
-@media(max-width:700px){
- .hdr{padding:20px 16px 14px}.hdr-logo{display:none}
- .nav-links{padding:8px 12px;gap:4px}.nav-links a{font-size:11px;padding:5px 10px}
  .container{padding:10px}.lots-grid{grid-template-columns:1fr}
  .sec-title{margin:14px 0 8px}
 }
@@ -83,15 +93,16 @@ h1,h2,h3{font-family:'DM Serif Display','Georgia',serif}
  .cnt-btn{display:none}.cnt-inp{border:none;background:transparent;font-weight:700}
  .lots-grid{grid-template-columns:1fr 1fr}.lot-card{page-break-inside:avoid}
 }
+
 </style>
+
 </head>
 <body>
 <div class="hdr">
   <img src="assets/logo_white.png" alt="Fazenda Árvore Grande" class="hdr-logo">
   <h1>Trato do Dia</h1>
-  <p>Quantidade por lote · Gerado em 20/03/2026 15:39</p>
+  <p>Quantidade por lote · Gerado em 25/03/2026 13:59</p>
 </div>
-
 
 <div class="save-ind" id="saveInd"></div>
 
@@ -115,13 +126,13 @@ h1,h2,h3{font-family:'DM Serif Display','Georgia',serif}
   </div>
 </div>
 
-<div class="footer">Fazenda Árvore Grande · Preços atualizados em 20/03/2026 15:39</div>
+<div class="footer">Fazenda Árvore Grande · Preços atualizados em 25/03/2026 13:59</div>
 
 <script>
 /* ── Data (embedded by Python) ─────────────────────────────────── */
-const R = {"lactacao": [{"nome": "Lote 1", "animais": 12, "media_leite_l": 34.6, "ingredientes": {"Silagem de milho": 28, "Farelo de soja": 4.8, "Polpa cítrica": 1.8, "Grão úmido": 3.8, "Fubá": 1, "Caroço de algodão": 2, "Premix": 1, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Lote 2", "animais": 25, "media_leite_l": 29, "ingredientes": {"Silagem de milho": 27, "Farelo de soja": 4.4, "Polpa cítrica": 1.5, "Grão úmido": 3, "Fubá": 1, "Caroço de algodão": 1, "Premix": 1, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Novilhas", "animais": 18, "media_leite_l": 22, "ingredientes": {"Silagem de milho": 26, "Farelo de soja": 4, "Polpa cítrica": 1, "Grão úmido": 3, "Fubá": 0.5, "Caroço de algodão": 1, "Premix": 1, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Lote 3", "animais": 15, "media_leite_l": 16, "ingredientes": {"Silagem de milho": 28, "Farelo de soja": 2.8, "Polpa cítrica": 1, "Grão úmido": 1, "Fubá": 0, "Caroço de algodão": 0, "Premix": 0.5, "Sal branco": 0.04, "Power FOS": 0.04}}], "outras": [{"nome": "Bezerras", "animais": 26, "ingredientes": {"Ração Granulada": 1.5, "Silagem de milho": 5, "Leite": 6}}, {"nome": "Novilhas Recria", "animais": 62, "ingredientes": {"Batida Novilhas": 1.8, "Silagem de sorgo": 7, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Pré-Parto", "animais": 4, "ingredientes": {"Batida Pré-Parto": 3, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Vacas Secas", "animais": 17, "ingredientes": {"Batida Novilhas": 1.8, "Silagem de sorgo": 7, "Sal branco": 0.04, "Power FOS": 0.04}}], "premix": {"nome": "Premix", "total_kg": 497, "componentes": [{"nome": "Farelo de soja", "kg": 180}, {"nome": "Uréia agrícola", "kg": 20}, {"nome": "Maxmilk Advance", "kg": 170}, {"nome": "Bicarbonato de sódio", "kg": 105}, {"nome": "Sequestrante (Mastersorb Gold)", "kg": 22}]}, "batidas": {"Sal Mineral": {"total_kg": 100, "componentes": [{"nome": "Sal branco", "kg": 50}, {"nome": "Power FOS", "kg": 50}]}, "Batida Novilhas": {"total_kg": 505, "componentes": [{"nome": "Farelo de soja", "kg": 285}, {"nome": "Fubá", "kg": 160}, {"nome": "Uréia agrícola", "kg": 10}, {"nome": "Power Recria 150", "kg": 50}]}, "Batida Pré-Parto": {"total_kg": 500, "componentes": [{"nome": "Farelo de soja", "kg": 200}, {"nome": "Fubá", "kg": 80}, {"nome": "Farelo de trigo", "kg": 135}, {"nome": "Caroço de algodão", "kg": 35}, {"nome": "Prelacto Ionic Protect", "kg": 50}]}}};
+const R = {"lactacao": [{"nome": "Lote 1", "animais": 12, "media_leite_l": 34.6, "ingredientes": {"Silagem de milho": 28, "Farelo de soja": 4.8, "Polpa cítrica": 1.8, "Grão úmido": 3.8, "Fubá": 1, "Caroço de algodão": 2, "Premix": 1, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Lote 2", "animais": 25, "media_leite_l": 29, "ingredientes": {"Silagem de milho": 27, "Farelo de soja": 4.4, "Polpa cítrica": 1.5, "Grão úmido": 3, "Fubá": 1, "Caroço de algodão": 1, "Premix": 1, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Novilhas", "animais": 18, "media_leite_l": 22, "ingredientes": {"Silagem de milho": 26, "Farelo de soja": 4, "Polpa cítrica": 1, "Grão úmido": 3, "Fubá": 0.5, "Caroço de algodão": 1, "Premix": 1, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Lote 3", "animais": 15, "media_leite_l": 16, "ingredientes": {"Silagem de milho": 28, "Farelo de soja": 2.8, "Polpa cítrica": 1, "Grão úmido": 1, "Fubá": 0, "Caroço de algodão": 0, "Premix": 0.5, "Sal branco": 0.04, "Power FOS": 0.04}}], "outras": [{"nome": "Bezerras", "animais": 25, "ingredientes": {"Ração Granulada": 1.5, "Silagem de milho": 5, "Leite": 6}}, {"nome": "Novilhas Recria", "animais": 62, "ingredientes": {"Batida Novilhas": 1.8, "Silagem de sorgo": 7, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Pré-Parto", "animais": 4, "ingredientes": {"Batida Pré-Parto": 3, "Sal branco": 0.04, "Power FOS": 0.04}}, {"nome": "Vacas Secas", "animais": 14, "ingredientes": {"Batida Novilhas": 1.8, "Silagem de sorgo": 7, "Sal branco": 0.04, "Power FOS": 0.04}}], "premix": {"nome": "Premix", "total_kg": 497, "componentes": [{"nome": "Farelo de soja", "kg": 180}, {"nome": "Uréia agrícola", "kg": 20}, {"nome": "Maxmilk Advance", "kg": 170}, {"nome": "Bicarbonato de sódio", "kg": 105}, {"nome": "Sequestrante (Mastersorb Gold)", "kg": 22}]}, "batidas": {"Sal Mineral": {"total_kg": 100, "componentes": [{"nome": "Sal branco", "kg": 50}, {"nome": "Power FOS", "kg": 50}]}, "Batida Novilhas": {"total_kg": 505, "componentes": [{"nome": "Farelo de soja", "kg": 285}, {"nome": "Fubá", "kg": 160}, {"nome": "Uréia agrícola", "kg": 10}, {"nome": "Power Recria 150", "kg": 50}]}, "Batida Pré-Parto": {"total_kg": 500, "componentes": [{"nome": "Farelo de soja", "kg": 200}, {"nome": "Fubá", "kg": 80}, {"nome": "Farelo de trigo", "kg": 135}, {"nome": "Caroço de algodão", "kg": 35}, {"nome": "Prelacto Ionic Protect", "kg": 50}]}}};
 const P = {"Silagem de milho": 0.13, "Grão úmido": 0.78, "Silagem de sorgo": 0.13, "Milho grão (seco)": 1.07, "Fubá": 1.07, "Ração Granulada": 2.5, "Farelo de soja": 2.6, "Polpa cítrica": 1.47, "Caroço de algodão": 1.83, "Farelo de trigo": 1.71, "Sal branco": 1.0, "Power FOS": 5.0, "Kaliber Supreme": 5.76, "Power Recria 150": 14.4, "Prelacto Ionic Protect": 4.0, "Uréia agrícola": 3.83, "Maxmilk Advance": 33.6, "Bicarbonato de sódio": 5.24, "Sequestrante (Mastersorb Gold)": 11.57, "Premix": 14.2079, "Sal Mineral": 3.0, "Batida Novilhas": 3.3079, "Batida Pré-Parto": 2.201};
-const ML = 2.1;
+const ML = 2.39;
 
 /* ── State ─────────────────────────────────────────────────────── */
 const DFLT = {};
